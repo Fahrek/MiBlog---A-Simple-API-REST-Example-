@@ -3,7 +3,9 @@ package org.alexys.rest.recursos;
 import java.util.List;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PathParam;
@@ -34,5 +36,20 @@ public class ArticuloRecurso {
     @Produces(MediaType.APPLICATION_JSON)
     public Articulo addArticulo(Articulo articulo) {
         return servicio.addArticulo(articulo);
+    }
+    
+    @DELETE
+    @Path("/{articuloId}")
+    public void deleteArticulo(@PathParam("articuloId") int id){
+        servicio.deleteArticulo(id);
+    }
+    
+    @PUT
+    @Path("/{articuloId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Articulo updateArticulo(@PathParam("articuloId") int id, Articulo articulo){
+        articulo.setId(id);
+        return servicio.updateArticulo(articulo);
     }
 }
