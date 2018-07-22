@@ -1,5 +1,6 @@
 package org.alexys.rest.recursos;
 
+import java.net.URI;
 import java.util.List;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
@@ -10,6 +11,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
 import org.alexys.rest.modelo.Articulo;
 import org.alexys.rest.servicio.ArticuloServicio;
@@ -41,8 +45,10 @@ public class ArticuloRecurso {
     }
 
     @POST
-    public Articulo addArticulo(Articulo articulo) {
-        return servicio.addArticulo(articulo);
+    public Response addArticulo(Articulo articulo, @Context UriInfo uriInfo) {
+        Articulo respuesta = servicio.addArticulo(articulo);
+        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(respuesta.getId())).build();
+        return Response.created(uri).entity(respuesta).build();
     }
 
     @DELETE
