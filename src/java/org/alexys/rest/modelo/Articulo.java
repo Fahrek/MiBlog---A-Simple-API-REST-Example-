@@ -1,19 +1,25 @@
-
 package org.alexys.rest.modelo;
 
+import java.util.List;
 import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Articulo {
+
     private int id;
     private String titulo;
     private String contenido;
     private Calendar creado;
     private String autor;
-    
-    public Articulo(){}
+
+    private List<Comentario> comentarios = new ArrayList<>();
+
+    public Articulo() {
+    }
 
     public Articulo(int id, String titulo, String contenido, String autor) {
         this.id = id;
@@ -62,6 +68,13 @@ public class Articulo {
     public void setAutor(String autor) {
         this.autor = autor;
     }
-    
-    
+
+    @XmlTransient
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
 }

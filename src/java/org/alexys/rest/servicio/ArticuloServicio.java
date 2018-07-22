@@ -1,12 +1,15 @@
 package org.alexys.rest.servicio;
 
 import java.util.List;
+import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import org.alexys.rest.modelo.Articulo;
 import org.alexys.rest.dao.BaseDeDatos;
 
 public class ArticuloServicio {
 
-    private List<Articulo> listado = BaseDeDatos.getInstancia().getListado();
+    private final List<Articulo> listado = BaseDeDatos.getInstancia().getListado();
 
     public List<Articulo> getArticulos() {
         return listado;
@@ -19,6 +22,29 @@ public class ArticuloServicio {
             }
         }
         return null;
+    }
+
+    public List<Articulo> getArticuloPorAutor(String autor) {
+        List<Articulo> resultado = new ArrayList<>();
+        for (Articulo articulo : listado) {
+            if (articulo.getAutor().equalsIgnoreCase(autor)) {
+                resultado.add(articulo);
+            }
+        }
+        return resultado;
+    }
+
+    public List<Articulo> getArticuloPorFecha(int year, int month) {
+        List<Articulo> resultado = new ArrayList<>();
+        Calendar fecha = new GregorianCalendar();
+        for (Articulo articulo : listado) {
+            fecha.setTime(articulo.getCreado().getTime());
+            if (fecha.get(Calendar.YEAR) == year
+                    && fecha.get(Calendar.MONTH) == month - 1) {
+                resultado.add(articulo);
+            }
+        }
+        return resultado;
     }
 
     public Articulo addArticulo(Articulo articulo) {
