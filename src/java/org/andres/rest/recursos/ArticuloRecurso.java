@@ -1,4 +1,4 @@
-package org.alexys.rest.recursos;
+package org.andres.rest.recursos;
 
 import java.net.URI;
 import java.util.List;
@@ -15,8 +15,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
-import org.alexys.rest.modelo.Articulo;
-import org.alexys.rest.servicio.ArticuloServicio;
+import org.andres.rest.modelo.Articulo;
+import org.andres.rest.modelo.Navegacion;
+import org.andres.rest.servicio.ArticuloServicio;
 
 @Path("/articulos")
 @Produces(MediaType.APPLICATION_JSON)
@@ -40,15 +41,32 @@ public class ArticuloRecurso {
 
     @GET
     @Path("/{articuloId}")
-    public Articulo getArticulo(@PathParam("articuloId") int id) {
-        return servicio.getArticulo(id);
+    public Articulo getArticulo(@PathParam("articuloId") int id, 
+                                @Context UriInfo uriInfo) {
+        Articulo respuesta = servicio.getArticulo(id);
+        
+        String linkSelf = uriInfo.getAbsolutePath().toString();
+        String linkComm = linkSelf + "/comentarios";
+        
+        Navegacion self = new Navegacion("Recurso", linkSelf, "Localizacion del recurso");
+        Navegacion comm = new Navegacion("Comentarios", linkComm, 
+                                         "Localizacion de los comentarios");
+        
+        respuesta.getNavegacion().add(self);
+        respuesta.getNavegacion().add(comm);
+        
+        return respuesta;
     }
 
     @POST
     public Response addArticulo(Articulo articulo, @Context UriInfo uriInfo) {
         Articulo respuesta = servicio.addArticulo(articulo);
-        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(respuesta.getId())).build();
-        return Response.created(uri).entity(respuesta).build();
+        URI uri = uriInfo.getAbsolutePathBuilder()
+                         .path(String.valueOf(respuesta.getId()))
+                         .build();
+        return Response.created(uri)
+                       .entity(respuesta)
+                       .build();
     }
 
     @DELETE

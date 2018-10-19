@@ -1,10 +1,10 @@
 
-package org.alexys.rest.dao;
+package org.andres.rest.dao;
 
 import java.util.List;
 import java.util.ArrayList;
-import org.alexys.rest.modelo.Articulo;
-import org.alexys.rest.modelo.Comentario;
+import org.andres.rest.modelo.Articulo;
+import org.andres.rest.modelo.Comentario;
 
 public final class BaseDeDatos {
     private final static BaseDeDatos baseDeDatos = new BaseDeDatos();

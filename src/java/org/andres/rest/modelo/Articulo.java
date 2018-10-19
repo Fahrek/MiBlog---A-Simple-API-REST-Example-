@@ -1,4 +1,4 @@
-package org.alexys.rest.modelo;
+package org.andres.rest.modelo;
 
 import java.util.List;
 import java.util.Calendar;
@@ -17,6 +17,7 @@ public class Articulo {
     private String autor;
 
     private List<Comentario> comentarios = new ArrayList<>();
+    private List<Navegacion> navegacion = new ArrayList<>();
 
     public Articulo() {
     }
@@ -76,5 +77,13 @@ public class Articulo {
 
     public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public List<Navegacion> getNavegacion() {
+        return navegacion;
+    }
+
+    public void setNavegacion(List<Navegacion> navegacion) {
+        this.navegacion = navegacion;
     }
 }

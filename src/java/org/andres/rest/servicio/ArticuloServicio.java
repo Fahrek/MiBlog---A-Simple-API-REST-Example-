@@ -1,11 +1,12 @@
-package org.alexys.rest.servicio;
+package org.andres.rest.servicio;
 
 import java.util.List;
 import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import org.alexys.rest.modelo.Articulo;
-import org.alexys.rest.dao.BaseDeDatos;
+import org.andres.rest.modelo.Articulo;
+import org.andres.rest.dao.BaseDeDatos;
+import org.andres.rest.excepciones.DatosNoEncontradosExcepcion;
 
 public class ArticuloServicio {
 
@@ -16,12 +17,16 @@ public class ArticuloServicio {
     }
 
     public Articulo getArticulo(int id) {
+        Articulo respuesta = null;
         for (Articulo articulo : listado) {
             if (articulo.getId() == id) {
-                return articulo;
+                respuesta = articulo;
             }
         }
-        return null;
+        if (respuesta == null) {
+            throw new DatosNoEncontradosExcepcion("No se encuentra el artículo");
+        }
+        return respuesta;
     }
 
     public List<Articulo> getArticuloPorAutor(String autor) {

@@ -185,7 +185,7 @@
         <property name="excludes" value=""/>
         <property name="runmain.jvmargs" value=""/>
         <path id="endorsed.classpath.path" path="${endorsed.classpath}"/>
-        <condition else="" property="endorsed.classpath.cmd.line.arg" value="-Xbootclasspath/p:'${toString:endorsed.classpath.path}'">
+        <condition else="" property="endorsed.classpath.cmd.line.arg" value="-Xbootclasspath/p:"${toString:endorsed.classpath.path}"">
             <and>
                 <isset property="endorsed.classpath"/>
                 <length length="0" string="${endorsed.classpath}" when="greater"/>
@@ -1032,11 +1032,11 @@ exists or setup the property manually. For example like this:
     </target>
     <target name="-pre-nbmodule-run-deploy">
         <!-- Empty placeholder for easier customization. -->
-        <!-- This target can be overriden by NetBeans modules. Don't override it directly, use -pre-run-deploy task instead. -->
+        <!-- This target can be overriden by NetBeans modules. Don"t override it directly, use -pre-run-deploy task instead. -->
     </target>
     <target name="-post-nbmodule-run-deploy">
         <!-- Empty placeholder for easier customization. -->
-        <!-- This target can be overriden by NetBeans modules. Don't override it directly, use -post-run-deploy task instead. -->
+        <!-- This target can be overriden by NetBeans modules. Don"t override it directly, use -post-run-deploy task instead. -->
     </target>
     <target name="-run-deploy-am">
         <!-- Task to deploy to the Access Manager runtime. -->

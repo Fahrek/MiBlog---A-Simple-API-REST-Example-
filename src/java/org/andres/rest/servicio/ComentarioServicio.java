@@ -1,8 +1,9 @@
-package org.alexys.rest.servicio;
+package org.andres.rest.servicio;
 
 import java.util.List;
-import org.alexys.rest.modelo.Articulo;
-import org.alexys.rest.modelo.Comentario;
+import org.andres.rest.modelo.Articulo;
+import org.andres.rest.modelo.Comentario;
+import org.andres.rest.excepciones.DatosNoEncontradosExcepcion;
 
 public class ComentarioServicio {
 
@@ -14,10 +15,14 @@ public class ComentarioServicio {
 
     public Comentario getComentario(int articuloId, int comentarioId) {
         List<Comentario> comentarios = articuloServicio.getArticulo(articuloId).getComentarios();
+        Comentario respuesta = null;
         for (Comentario comentario : comentarios) {
             if (comentario.getId() == comentarioId) {
                 return comentario;
             }
+        }
+        if (respuesta == null) {
+            throw new DatosNoEncontradosExcepcion("No se encuentra el comentario");
         }
         return null;
     }

@@ -1,4 +1,4 @@
-package org.alexys.rest.modelo;
+package org.andres.rest.modelo;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
